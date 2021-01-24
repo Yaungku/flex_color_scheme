@@ -111,7 +111,7 @@ final List<FlexSchemeData> myFlexSchemes = <FlexSchemeData>[
 ];
 
 class DemoApp extends StatefulWidget {
-  const DemoApp({Key key}) : super(key: key);
+  const DemoApp({Key? key}) : super(key: key);
 
   @override
   _DemoAppState createState() => _DemoAppState();
@@ -119,9 +119,9 @@ class DemoApp extends StatefulWidget {
 
 class _DemoAppState extends State<DemoApp> {
   // Used to select if we use the dark or light theme.
-  ThemeMode themeMode;
+  late ThemeMode themeMode;
   // Used to select which FlexSchemeData we use.
-  int themeIndex;
+  late int themeIndex;
 
   @override
   void initState() {
@@ -190,12 +190,12 @@ class _DemoAppState extends State<DemoApp> {
 // defined example looks like in an application and with commonly used Widgets.
 class HomePage extends StatelessWidget {
   const HomePage({
-    Key key,
-    @required this.themeMode,
-    @required this.onThemeModeChanged,
-    @required this.schemeIndex,
-    @required this.onSchemeChanged,
-    @required this.flexSchemeData,
+    Key? key,
+    required this.themeMode,
+    required this.onThemeModeChanged,
+    required this.schemeIndex,
+    required this.onSchemeChanged,
+    required this.flexSchemeData,
   }) : super(key: key);
   final ThemeMode themeMode;
   final ValueChanged<ThemeMode> onThemeModeChanged;
@@ -208,7 +208,7 @@ class HomePage extends StatelessWidget {
     final ThemeData theme = Theme.of(context);
     final ColorScheme colorScheme = theme.colorScheme;
     final TextTheme textTheme = theme.textTheme;
-    final TextStyle headline4 = textTheme.headline4;
+    final TextStyle headline4 = textTheme.headline4!;
     final bool isLight = Theme.of(context).brightness == Brightness.light;
 
     return Row(

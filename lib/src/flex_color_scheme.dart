@@ -144,11 +144,11 @@ class FlexColorScheme with Diagnosticable {
   /// styles and to make dark themes that uses true black background and
   /// surfaces.
   const FlexColorScheme({
-    @required this.brightness,
-    @required this.primary,
-    @required this.primaryVariant,
-    @required this.secondary,
-    @required this.secondaryVariant,
+    required this.brightness,
+    required this.primary,
+    required this.primaryVariant,
+    required this.secondary,
+    required this.secondaryVariant,
     this.surface,
     this.background,
     this.error,
@@ -169,22 +169,9 @@ class FlexColorScheme with Diagnosticable {
     this.fontFamily,
     this.platform,
     this.typography,
-  })  : assert(brightness != null, 'Brightness may not be null.'),
-        assert(primary != null, 'Primary color may not be null.'),
-        assert(
-            primaryVariant != null, 'Primary variant color may not be null.'),
-        assert(secondary != null, 'Secondary color may not be null.'),
-        assert(secondaryVariant != null,
-            'Secondary variant color may not be null.'),
-        assert(tabBarStyle != null, 'Tab bar style cannot be null.'),
-        assert(appBarElevation != null && appBarElevation >= 0.0,
-            'AppBar elevation cannot be null and must be >= 0.'),
-        assert(bottomAppBarElevation != null && bottomAppBarElevation >= 0.0,
-            'Bottom AppBar elevation cannot be null and must be >= 0.'),
-        assert(tooltipsMatchBackground != null,
-            'Tooltips match background color may not be null.'),
-        assert(transparentStatusBar != null,
-            'Transparent status bar may not be null.');
+  })  : assert(appBarElevation >= 0.0, 'AppBar elevation must be >= 0.'),
+        assert(bottomAppBarElevation >= 0.0,
+            'Bottom AppBar elevation must be >= 0.');
 
   /// The overall brightness of this color scheme.
   ///
@@ -218,7 +205,7 @@ class FlexColorScheme with Diagnosticable {
   /// If no value is given defaults to [FlexColor.materialLightSurface] if
   /// brightness is light and to [FlexColor.materialDarkSurface] if
   /// brightness is dark.
-  final Color surface;
+  final Color? surface;
 
   /// A color that typically appears behind scrollable content.
   ///
@@ -228,7 +215,7 @@ class FlexColorScheme with Diagnosticable {
   /// If no value is given defaults to [FlexColor.materialLightBackground] if
   /// brightness is light and to [FlexColor.materialDarkBackground] if
   /// brightness is dark.
-  final Color background;
+  final Color? background;
 
   /// The color to use for input validation errors, e.g. for
   /// [InputDecoration.errorText].
@@ -236,7 +223,7 @@ class FlexColorScheme with Diagnosticable {
   /// If no value is given defaults to [FlexColor.materialLightError] if
   /// brightness is light and to [FlexColor.materialDarkError] if brightness
   /// is dark.
-  final Color error;
+  final Color? error;
 
   /// The color of the scaffold background.
   ///
@@ -245,7 +232,7 @@ class FlexColorScheme with Diagnosticable {
   /// it separately.
   ///
   /// If no color is given, it defaults to [background].
-  final Color scaffoldBackground;
+  final Color? scaffoldBackground;
 
   /// Background color theme for the app bar.
   ///
@@ -256,7 +243,7 @@ class FlexColorScheme with Diagnosticable {
   ///
   /// If no color is given it defaults to the Flutter standard color scheme
   /// based light and dark app bar theme colors.
-  final Color appBarBackground;
+  final Color? appBarBackground;
 
   /// The accentColor in ThemeData as a color scheme property.
   ///
@@ -277,7 +264,7 @@ class FlexColorScheme with Diagnosticable {
   /// impacts other color properties that does not get themed to the scheme
   /// secondary color separately. We have not yet noticed any such widgets
   /// when using FlexColorScheme. If you come across any, please let us know.
-  final Color accentColor;
+  final Color? accentColor;
 
   /// A color that is clearly legible when drawn on [primary].
   ///
@@ -287,7 +274,7 @@ class FlexColorScheme with Diagnosticable {
   ///
   /// If null, the on color is derived from the brightness of the [primary]
   /// color, and will be be black if it is light and white if it is dark.
-  final Color onPrimary;
+  final Color? onPrimary;
 
   /// A color that is clearly legible when drawn on [secondary].
   ///
@@ -297,7 +284,7 @@ class FlexColorScheme with Diagnosticable {
   ///
   /// If null, the on color is derived from the brightness of the [secondary]
   /// color, and will be be black if it is light and white if it is dark.
-  final Color onSecondary;
+  final Color? onSecondary;
 
   /// A color that is clearly legible when drawn on [surface].
   ///
@@ -307,7 +294,7 @@ class FlexColorScheme with Diagnosticable {
   ///
   /// If null, the on color is derived from the brightness of the [surface]
   /// color, and will be be black if it is light and white if it is dark.
-  final Color onSurface;
+  final Color? onSurface;
 
   /// A color that is clearly legible when drawn on [background].
   ///
@@ -317,7 +304,7 @@ class FlexColorScheme with Diagnosticable {
   ///
   /// If null, the on color is derived from the brightness of the [background]
   /// color, and will be be black if it is light and white if it is dark.
-  final Color onBackground;
+  final Color? onBackground;
 
   /// A color that is clearly legible when drawn on [error].
   ///
@@ -327,7 +314,7 @@ class FlexColorScheme with Diagnosticable {
   ///
   /// If null, the on color is derived from the brightness of the [error]
   /// color, and will be be black if it is light and white if it is dark.
-  final Color onError;
+  final Color? onError;
 
   /// Select preferred style for the default TabBarTheme.
   ///
@@ -410,10 +397,10 @@ class FlexColorScheme with Diagnosticable {
   ///
   /// A larger value translates to a spacing increase (less dense), and a
   /// smaller value translates to a spacing decrease (more dense).
-  final VisualDensity visualDensity;
+  final VisualDensity? visualDensity;
 
   /// Name of the font family to use as default for the theme.
-  final String fontFamily;
+  final String? fontFamily;
 
   /// The platform adaptive widgets should adapt to target and mechanics too.
   ///
@@ -438,7 +425,7 @@ class FlexColorScheme with Diagnosticable {
   /// for other platforms by setting the [platform] of the [Theme] explicitly to
   /// another [TargetPlatform] value, or by setting
   /// [debugDefaultTargetPlatformOverride].
-  final TargetPlatform platform;
+  final TargetPlatform? platform;
 
   /// The color and geometry [TextTheme] values used to configure
   /// [ThemeData.textTheme], [ThemeData.primaryTextTheme] and
@@ -447,7 +434,7 @@ class FlexColorScheme with Diagnosticable {
   /// Used default value deviates from the Flutter standard, that uses the old
   /// [Typography.material2014]. Here we use the newer [Typography.material2018]
   /// as default typography if one is not provided.
-  final Typography typography;
+  final Typography? typography;
 
   //****************************************************************************
   //
@@ -475,7 +462,7 @@ class FlexColorScheme with Diagnosticable {
     /// undefined. If both are specified the scheme colors defined by `colors`
     /// are used. If both are null then `scheme` defaults to
     /// [FlexScheme.material], thus defining the resulting scheme.
-    FlexSchemeColor colors,
+    FlexSchemeColor? colors,
 
     /// A shortcut to use one of the built-in color schemes defined by
     /// enum [FlexScheme].
@@ -485,10 +472,10 @@ class FlexColorScheme with Diagnosticable {
     ///
     /// To create custom color schemes use the `colors` property. If both
     /// `colors`and `scheme` are specified, the scheme defined by
-    /// `colors` is used. If both are null, then `scheme` defaults to
+    /// `colors` is used. If `colors` is null, then `scheme` defaults to
     /// [FlexScheme.material], thus defining the resulting scheme.
     ///
-    FlexScheme scheme,
+    FlexScheme scheme = FlexScheme.material,
 
     /// Defines which surface style to use.
     ///
@@ -555,17 +542,17 @@ class FlexColorScheme with Diagnosticable {
     /// Default to 0, also defaults 0 if null. The 0 elevation is an iOs style
     /// influenced opinionated choice, but it can easily be adjusted for the
     /// theme with this property.
-    double appBarElevation,
+    double appBarElevation = 0,
 
     /// The themed elevation for the bottom app bar.
     ///
     /// If null, defaults to the value given to the `appBarElevation` elevation.
-    double bottomAppBarElevation,
+    double bottomAppBarElevation = 0,
 
     /// The background color for widgets like Card, BottomAppBar and Dialogs.
     ///
     /// If null, the color is determined by [FlexSurface] `surfaceStyle`.
-    Color surface,
+    Color? surface,
 
     /// A color that typically appears behind scrollable content.
     ///
@@ -573,43 +560,43 @@ class FlexColorScheme with Diagnosticable {
     /// it is used eg in menu drawer.
     ///
     /// If null, the color is determined by [FlexSurface] `surfaceStyle`.
-    Color background,
+    Color? background,
 
     /// The color of the scaffold background.
     ///
     /// If null, the color is determined by [FlexSurface] `surfaceStyle`.
-    Color scaffoldBackground,
+    Color? scaffoldBackground,
 
     /// A color that is clearly legible when drawn on [primary] color.
     ///
     /// If null, the on color is derived from the brightness of the [primary]
     /// color, and will be be black if it is light and white if it is dark.
-    Color onPrimary,
+    Color? onPrimary,
 
     /// A color that is clearly legible when drawn on [secondary] color.
     ///
     /// If null, the on color is derived from the brightness of the [secondary]
     /// color, and will be be black if it is light and white if it is dark.
-    Color onSecondary,
+    Color? onSecondary,
 
     /// A color that is clearly legible when drawn on [surface] color.
     ///
     /// If null, the on color is derived from the brightness of the [surface]
     /// color, and will be be black if it is light and white if it is dark.
-    Color onSurface,
+    Color? onSurface,
 
     /// A color that is clearly legible when drawn on [background] color, it is
     /// also used as on color for [scaffoldBackground].
     ///
     /// If null, the on color is derived from the brightness of the [background]
     /// color, and will be be black if it is light and white if it is dark.
-    Color onBackground,
+    Color? onBackground,
 
     /// A color that is clearly legible when drawn on [error].
     ///
     /// If null, the on color is derived from the brightness of the [error]
     /// color, and will be be black if it is light and white if it is dark.
-    Color onError,
+    Color? onError,
 
     /// Tooltips background color will match the brightness of the theme's
     /// background color.
@@ -643,18 +630,18 @@ class FlexColorScheme with Diagnosticable {
     /// Same property as in [ThemeData] factory, it is just passed along to it.
     ///
     /// Included for convenience to avoid a copyWith if it needs to be changed.
-    VisualDensity visualDensity,
+    VisualDensity? visualDensity,
 
     /// Same property as in [ThemeData] factory, it is just passed along to it.
     ///
     /// Included for convenience to avoid a copyWith if it needs to be changed.
-    String fontFamily,
+    String? fontFamily,
 
     /// Same property as in [ThemeData] factory, it is just passed along to it.
     ///
     /// Included for convenience to avoid a copyWith if it needs to be changed.
     /// Defaults to [defaultTargetPlatform].
-    TargetPlatform platform,
+    TargetPlatform? platform,
 
     /// Same property as in [ThemeData] factory.
     ///
@@ -663,34 +650,15 @@ class FlexColorScheme with Diagnosticable {
     /// Default value deviates from the Flutter standard that uses the old
     /// [Typography.material2014], in favor of newer [Typography.material2018]
     /// as default typography if one is not provided.
-    Typography typography,
+    Typography? typography,
   }) {
     // LIGHT: Check valid inputs
-    assert(usedColors != null, 'usedColors cannot be null');
     assert(usedColors >= 1 && usedColors <= 4, 'usedColors must be 1 to 4');
-    assert(surfaceStyle != null, 'surfaceStyle cannot be null');
-    assert(appBarStyle != null, 'appBarStyle cannot be null');
-    assert(tabBarStyle != null, 'tabBarStyle cannot be null');
-    assert(appBarElevation == null || appBarElevation >= 0.0,
-        'AppBar elevation must be null or >= 0.');
-    assert(bottomAppBarElevation == null || bottomAppBarElevation >= 0.0,
-        'Bottom AppBar elevation must be null or must be >= 0.');
-    assert(tooltipsMatchBackground != null,
-        'tooltipsMatchBackground cannot be null');
-    assert(transparentStatusBar != null, 'transparentStatusBar cannot be null');
-    // Fallback value for scheme is default material scheme.
-    scheme ??= FlexScheme.material;
+    assert(appBarElevation >= 0.0, 'AppBar elevation must be >= 0.');
+    assert(
+        bottomAppBarElevation >= 0.0, 'Bottom AppBar elevation must be >= 0.');
     // If colors was null, we used the scheme based value.
-    colors ??= FlexColor.schemesWithCustom[scheme].light;
-    // Just in case null is passed in release mode, we use fallback values.
-    usedColors ??= 4;
-    surfaceStyle ??= FlexSurface.material;
-    appBarStyle ??= FlexAppBarStyle.primary;
-    tabBarStyle ??= FlexTabBarStyle.forAppBar;
-    appBarElevation ??= 0;
-    bottomAppBarElevation ??= appBarElevation;
-    tooltipsMatchBackground ??= false;
-    transparentStatusBar ??= true;
+    colors ??= FlexColor.schemesWithCustom[scheme]!.light;
 
     // Make effective colors using 1...4 of the passed in theme colors via
     // the [usedColors] property.
@@ -852,7 +820,7 @@ class FlexColorScheme with Diagnosticable {
     /// undefined. If both are specified the scheme colors defined by `colors`
     /// are used. If both are null then `scheme` defaults to
     /// [FlexScheme.material], thus defining the resulting scheme.
-    FlexSchemeColor colors,
+    FlexSchemeColor? colors,
 
     /// A shortcut to use one of the built-in color schemes defined by
     /// enum [FlexScheme].
@@ -862,10 +830,10 @@ class FlexColorScheme with Diagnosticable {
     ///
     /// To create custom color schemes use the `colors` property. If both
     /// `colors`and `scheme` are specified, the scheme defined by
-    /// `colors` is used. If both are null, then `scheme` defaults to
+    /// `colors` is used. If `colors` is null then `scheme` defaults to
     /// [FlexScheme.material], thus defining the resulting scheme.
     ///
-    FlexScheme scheme,
+    FlexScheme scheme = FlexScheme.material,
 
     /// The number of the four main scheme colors to be used of the ones
     /// passed in via the required colors [FlexSchemeColor] property.
@@ -932,17 +900,17 @@ class FlexColorScheme with Diagnosticable {
     /// Default to 0, also defaults 0 if null. The 0 elevation is an iOs style
     /// influenced opinionated choice, but it can easily be adjusted for the
     /// theme with this property.
-    double appBarElevation,
+    double appBarElevation = 0,
 
     /// The themed elevation for the bottom app bar.
     ///
     /// If null, defaults to the value given to the `appBarElevation` elevation.
-    double bottomAppBarElevation,
+    double bottomAppBarElevation = 0,
 
     /// The background color for widgets like Card, BottomAppBar and dialogs.
     ///
     /// If null, the color is determined by [FlexSurface] `surfaceStyle`.
-    Color surface,
+    Color? surface,
 
     /// A color that typically appears behind scrollable content.
     ///
@@ -950,43 +918,43 @@ class FlexColorScheme with Diagnosticable {
     /// it is used eg in menu drawer.
     ///
     /// If null, the color is determined by [FlexSurface] `surfaceStyle`.
-    Color background,
+    Color? background,
 
     /// The color of the scaffold background.
     ///
     /// If null the color is defined by [FlexSurface] `surfaceStyle`.
-    Color scaffoldBackground,
+    Color? scaffoldBackground,
 
     /// A color that is clearly legible when drawn on [primary] color.
     ///
     /// If null, the on color is derived from the brightness of the [primary]
     /// color, and will be be black if it is light and white if it is dark.
-    Color onPrimary,
+    Color? onPrimary,
 
     /// A color that is clearly legible when drawn on [secondary] color.
     ///
     /// If null, the on color is derived from the brightness of the [secondary]
     /// color, and will be be black if it is light and white if it is dark.
-    Color onSecondary,
+    Color? onSecondary,
 
     /// A color that is clearly legible when drawn on [surface] color.
     ///
     /// If null, the on color is derived from the brightness of the [surface]
     /// color, and will be be black if it is light and white if it is dark.
-    Color onSurface,
+    Color? onSurface,
 
     /// A color that is clearly legible when drawn on [background] color, it is
     /// also used as on color for [scaffoldBackground].
     ///
     /// If null, the on color is derived from the brightness of the [background]
     /// color, and will be be black if it is light and white if it is dark.
-    Color onBackground,
+    Color? onBackground,
 
     /// A color that is clearly legible when drawn on [error].
     ///
     /// If null, the on color is derived from the brightness of the [error]
     /// color, and will be be black if it is light and white if it is dark.
-    Color onError,
+    Color? onError,
 
     /// Makes the dark theme even darker.
     ///
@@ -1027,18 +995,18 @@ class FlexColorScheme with Diagnosticable {
     /// Same property as in [ThemeData] factory, it is just passed along to it.
     ///
     /// Included for convenience to avoid a copyWith if it needs to be changed.
-    VisualDensity visualDensity,
+    VisualDensity? visualDensity,
 
     /// Same property as in [ThemeData] factory, it is just passed along to it.
     ///
     /// Included for convenience to avoid a copyWith if it needs to be changed.
-    String fontFamily,
+    String? fontFamily,
 
     /// Same property as in [ThemeData] factory, it is just passed along to it.
     ///
     /// Included for convenience to avoid a copyWith if it needs to be changed.
     /// Defaults to [defaultTargetPlatform].
-    TargetPlatform platform,
+    TargetPlatform? platform,
 
     /// Same property as in [ThemeData] factory.
     ///
@@ -1046,41 +1014,21 @@ class FlexColorScheme with Diagnosticable {
     /// Default value deviates from the Flutter standard that uses the old
     /// [Typography.material2014], in favor of newer [Typography.material2018]
     /// as default typography if one is not provided.
-    Typography typography,
+    Typography? typography,
   }) {
     // DARK: Check valid inputs
-    assert(usedColors != null, 'usedColors may not be null.');
     assert(usedColors >= 1 && usedColors <= 4, 'usedColors must be 1 to 4.');
-    assert(surfaceStyle != null, 'surfaceStyle may not be null.');
-    assert(appBarStyle != null, 'appBarStyle may not be null.');
-    assert(tabBarStyle != null, 'tabBarStyle cannot be null');
-    assert(appBarElevation == null || appBarElevation >= 0.0,
-        'AppBar elevation must be null or >= 0.');
-    assert(bottomAppBarElevation == null || bottomAppBarElevation >= 0.0,
-        'Bottom AppBar elevation must be null or must be >= 0.');
-    assert(darkIsTrueBlack != null, 'darkIsTrueBlack color may not be null.');
-    assert(tooltipsMatchBackground != null,
-        'tooltipsMatchBackground cannot be null');
-    assert(transparentStatusBar != null, 'transparentStatusBar cannot be null');
-    // Fallback value for scheme is default material scheme.
-    scheme ??= FlexScheme.material;
+    assert(appBarElevation >= 0.0, 'AppBar elevation must be >= 0.');
+    assert(
+        bottomAppBarElevation >= 0.0, 'Bottom AppBar elevation must be >= 0.');
+
     // If colors was null, we used the scheme based value.
-    colors ??= FlexColor.schemesWithCustom[scheme].dark;
-    // Just in case null is passed in release mode, we use fallback values.
-    usedColors ??= 4;
-    surfaceStyle ??= FlexSurface.material;
-    appBarStyle ??= FlexAppBarStyle.surface;
-    tabBarStyle ??= FlexTabBarStyle.forAppBar;
-    appBarElevation ??= 0;
-    bottomAppBarElevation ??= appBarElevation;
-    darkIsTrueBlack ??= false;
-    tooltipsMatchBackground ??= false;
-    transparentStatusBar ??= true;
+    colors ??= FlexColor.schemesWithCustom[scheme]!.dark;
 
     // Make effective colors using 1...4 of the passed in theme colors via
     // the [usedColors] value.
     final FlexSchemeColor effectiveColors = FlexSchemeColor(
-      primary: colors.primary ?? FlexColor.materialLightPrimary,
+      primary: colors.primary,
       primaryVariant: usedColors > 2
           ? colors.primaryVariant
           // ignore: avoid_redundant_argument_values
@@ -1294,7 +1242,7 @@ class FlexColorScheme with Diagnosticable {
   /// works on Android API 30 (=Android 11) or higher. For more information
   /// and a complete example of how it can be used, please see:
   /// https://github.com/rydmike/sysnavbar
-  static SystemUiOverlayStyle themedSystemNavigationBar(BuildContext context,
+  static SystemUiOverlayStyle themedSystemNavigationBar(BuildContext? context,
       {
 
       /// Use a divider line on the top edge of the system navigation bar.
@@ -1313,16 +1261,11 @@ class FlexColorScheme with Diagnosticable {
 
       /// Background used if context is null, mostly used for testing. If null,
       /// then black for dark brightness, and white for light brightness.
-      Color nullContextBackground}) {
+      Color? nullContextBackground}) {
     //
-    // Use Brightness.light if it was null for some reason.
-    // ignore: parameter_assignments
-    nullContextBrightness ??= Brightness.light;
 
     // For the opacity validity checks and enforcement, we ignore the parameter
     // re-assignment lint rule.
-    // ignore: parameter_assignments
-    opacity ??= 1.0;
     // ignore: parameter_assignments
     if (opacity < 0) opacity = 0;
     // ignore: parameter_assignments
@@ -1338,7 +1281,7 @@ class FlexColorScheme with Diagnosticable {
 
     // Use Theme colorScheme background if possible, else nullContextBackground.
     final Color background = context != null
-        ? (Theme.of(context)?.colorScheme?.background ?? nullContextBackground)
+        ? Theme.of(context).colorScheme.background
         : nullContextBackground;
 
     // The used system navigation bar divider colors below were tuned to
@@ -1352,7 +1295,7 @@ class FlexColorScheme with Diagnosticable {
     // AnnotatedRegion if this does not produce the desired result.
     return SystemUiOverlayStyle(
       systemNavigationBarColor: background.withOpacity(opacity),
-      systemNavigationBarDividerColor: (useDivider ?? true)
+      systemNavigationBarDividerColor: useDivider
           ? isDark
               ? const Color(0xFF2C2C2C)
               : const Color(0xFFDDDDDD)
@@ -1388,9 +1331,6 @@ class FlexColorScheme with Diagnosticable {
   /// This function is an approximation and gives an automated way of creating
   /// a Material like primary swatch.
   static MaterialColor createPrimarySwatch(Color color) {
-    // Null default fallback is default material primary light color.
-    // ignore: parameter_assignments
-    color ??= FlexColor.materialLightPrimary;
     const List<double> strengths = <double> //
         [0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9];
     final Map<int, Color> swatch = <int, Color>{};
@@ -1753,9 +1693,9 @@ class FlexColorScheme with Diagnosticable {
     // does when you create a theme from a swatch. This gives us some missing
     // critical primary shades to work with.
     final Color _primaryColorDark =
-        _isDark ? _primarySwatch[700] : _primarySwatch[800];
-    final Color _primaryColorLight = _primarySwatch[100];
-    final Color _secondaryHeaderColor = _primarySwatch[50];
+        _isDark ? _primarySwatch[700]! : _primarySwatch[800]!;
+    final Color _primaryColorLight = _primarySwatch[100]!;
+    final Color _secondaryHeaderColor = _primarySwatch[50]!;
 
     // We need some logic for the appBarColor. If a custom color for the
     // app bar was passed in, we use that, if not we use the surface color in
@@ -2127,7 +2067,7 @@ class FlexColorScheme with Diagnosticable {
       chipTheme: ChipThemeData.fromDefaults(
         secondaryColor: _colorScheme.primary,
         brightness: _colorScheme.brightness,
-        labelStyle: _textTheme.bodyText1,
+        labelStyle: _textTheme.bodyText1!,
       ),
 
       // We have to separately specify the foreground color in FABs to be the
@@ -2176,7 +2116,7 @@ class FlexColorScheme with Diagnosticable {
         // We do not use the min height, the custom padding handles it instead.
         padding: _tooltipPadding(),
         margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-        textStyle: _textTheme.bodyText2.copyWith(
+        textStyle: _textTheme.bodyText2!.copyWith(
           inherit: false,
           color: tooltipsMatchBackground
               ? _isDark
@@ -2190,11 +2130,11 @@ class FlexColorScheme with Diagnosticable {
         decoration: tooltipsMatchBackground
             ? BoxDecoration(
                 color: _isDark
-                    ? Colors.grey[900].withOpacity(0.93)
+                    ? Colors.grey[900]!.withOpacity(0.93)
                     : Colors.white.withOpacity(0.94),
                 borderRadius: const BorderRadius.all(Radius.circular(4)),
                 border: Border.all(
-                    color: _isDark ? Colors.grey[600] : Colors.grey[900]),
+                    color: _isDark ? Colors.grey.shade600 : Colors.grey[900]!),
               )
             : null,
       ),
@@ -2302,31 +2242,31 @@ class FlexColorScheme with Diagnosticable {
 
   /// Copy the object with one or more provided properties changed.
   FlexColorScheme copyWith({
-    Brightness brightness,
-    Color primary,
-    Color primaryVariant,
-    Color secondary,
-    Color secondaryVariant,
-    Color surface,
-    Color background,
-    Color error,
-    Color scaffoldBackground,
-    Color appBarBackground,
-    Color accentColor,
-    Color onPrimary,
-    Color onSecondary,
-    Color onSurface,
-    Color onBackground,
-    Color onError,
-    FlexTabBarStyle tabBarStyle,
-    double appBarElevation,
-    double bottomAppBarElevation,
-    bool tooltipsMatchBackground,
-    bool transparentStatusBar,
-    VisualDensity visualDensity,
-    String fontFamily,
-    TargetPlatform platform,
-    Typography typography,
+    Brightness? brightness,
+    Color? primary,
+    Color? primaryVariant,
+    Color? secondary,
+    Color? secondaryVariant,
+    Color? surface,
+    Color? background,
+    Color? error,
+    Color? scaffoldBackground,
+    Color? appBarBackground,
+    Color? accentColor,
+    Color? onPrimary,
+    Color? onSecondary,
+    Color? onSurface,
+    Color? onBackground,
+    Color? onError,
+    FlexTabBarStyle? tabBarStyle,
+    double? appBarElevation,
+    double? bottomAppBarElevation,
+    bool? tooltipsMatchBackground,
+    bool? transparentStatusBar,
+    VisualDensity? visualDensity,
+    String? fontFamily,
+    TargetPlatform? platform,
+    Typography? typography,
   }) {
     return FlexColorScheme(
       brightness: brightness ?? this.brightness,
@@ -2398,7 +2338,7 @@ class FlexColorScheme with Diagnosticable {
   // Is this better? Why? How? Investigate!
   @override
   int get hashCode {
-    final List<Object> values = <Object>[
+    final List<Object?> values = <Object?>[
       brightness,
       primary,
       primaryVariant,
@@ -2516,13 +2456,10 @@ class FlexSchemeSurfaceColors with Diagnosticable {
   /// Default constructor. [FlexSchemeSurfaceColors] is usually created with
   /// the [FlexSchemeSurfaceColors.from] factory.
   const FlexSchemeSurfaceColors({
-    @required this.surface,
-    @required this.background,
-    @required this.scaffoldBackground,
-  })  : assert(surface != null, 'Surface color cannot be null.'),
-        assert(background != null, 'Background color cannot be null.'),
-        assert(scaffoldBackground != null,
-            'Scaffold background color cannot be null.');
+    required this.surface,
+    required this.background,
+    required this.scaffoldBackground,
+  });
 
   /// The background color for widgets like [Card] and [Dialog].
   ///
@@ -2592,31 +2529,13 @@ class FlexSchemeSurfaceColors with Diagnosticable {
     ///
     /// Defaults to [FlexColor.materialLightPrimary] if brightness is light,
     /// otherwise defaults to [FlexColor.materialDarkPrimary].
-    Color primary,
-
-    /// Old property name for the style of the used surfaces colors.
-    @Deprecated('Use surfaceStyle instead that replaces it and is just a '
-        'renamed themeSurface.\n'
-        'This property was deprecated in v1.3.0 and will be totally removed '
-        'in null safe versions (v2.0.0).')
-        FlexSurface themeSurface,
+    Color? primary,
   }) {
-    assert(brightness != null, 'Brightness may not be null.');
-    assert(surfaceStyle != null, 'ThemeSurface may not be null.');
-
-    // Null checks and fallback values.
-    brightness ??= Brightness.light;
-    surfaceStyle ??= FlexSurface.material;
     // Primary color gets default via brightness and Material default colors
     // if it was not provided, should be provided when making branded surfaces.
     primary ??= brightness == Brightness.light
         ? FlexColor.materialLightPrimary
         : FlexColor.materialDarkPrimary;
-
-    // If deprecated themeSurface was not null, let it give the value
-    // to surfaceStyle, themeSurface now defaults to null, so if it is not
-    // then it was used based on older API and should be respected.
-    if (themeSurface != null) surfaceStyle = themeSurface;
 
     // These colors will be computed from defaults for the surface
     // provided style [FlexSurface], [brightness] and [primary] color.
@@ -2624,10 +2543,10 @@ class FlexSchemeSurfaceColors with Diagnosticable {
     Color _background;
     Color _scaffoldBackground;
 
-    switch (brightness ?? Brightness.light) {
+    switch (brightness) {
       case Brightness.light:
         {
-          switch (surfaceStyle ?? FlexSurface.material) {
+          switch (surfaceStyle) {
             case FlexSurface.material:
               {
                 _surface = FlexColor.materialLightSurface;
@@ -2688,7 +2607,7 @@ class FlexSchemeSurfaceColors with Diagnosticable {
         break;
       case Brightness.dark:
         {
-          switch (surfaceStyle ?? FlexSurface.material) {
+          switch (surfaceStyle) {
             case FlexSurface.material:
               {
                 _surface = FlexColor.materialDarkSurface;
@@ -2760,9 +2679,9 @@ class FlexSchemeSurfaceColors with Diagnosticable {
 
   /// Copy the object with one or more provided properties changed.
   FlexSchemeSurfaceColors copyWith({
-    Color surface,
-    Color background,
-    Color scaffoldBackground,
+    Color? surface,
+    Color? background,
+    Color? scaffoldBackground,
   }) {
     return FlexSchemeSurfaceColors(
       surface: surface ?? this.surface,
@@ -2822,16 +2741,12 @@ class FlexSchemeOnColors with Diagnosticable {
   /// Default constructor. In most situations the factory
   /// [FlexSchemeOnColors.from] is the preferred way to create the onColors.
   const FlexSchemeOnColors({
-    @required this.onPrimary,
-    @required this.onSecondary,
-    @required this.onSurface,
-    @required this.onBackground,
-    @required this.onError,
-  })  : assert(onPrimary != null, 'onPrimary may not be null.'),
-        assert(onSecondary != null, 'onSecondary color may not be null.'),
-        assert(onSurface != null, 'onSurface color may not be null.'),
-        assert(onBackground != null, 'onBackground color may not be null.'),
-        assert(onError != null, 'onError color may not be null.');
+    required this.onPrimary,
+    required this.onSecondary,
+    required this.onSurface,
+    required this.onBackground,
+    required this.onError,
+  });
 
   /// A color that is clearly legible when drawn on primary color.
   final Color onPrimary;
@@ -2857,31 +2772,17 @@ class FlexSchemeOnColors with Diagnosticable {
   /// particular on color will be used instead of the computed on color value
   /// for the corresponding provided color.
   factory FlexSchemeOnColors.from({
-    @required Color primary,
-    @required Color secondary,
-    @required Color surface,
-    @required Color background,
-    @required Color error,
-    Color onPrimary,
-    Color onSecondary,
-    Color onSurface,
-    Color onBackground,
-    Color onError,
+    required Color primary,
+    required Color secondary,
+    required Color surface,
+    required Color background,
+    required Color error,
+    Color? onPrimary,
+    Color? onSecondary,
+    Color? onSurface,
+    Color? onBackground,
+    Color? onError,
   }) {
-    // Our reference colors that we compute on colors for cannot be null
-    assert(primary != null, 'Primary color may not be null.');
-    assert(secondary != null, 'Secondary color may not be null.');
-    assert(surface != null, 'Surface color may not be null.');
-    assert(background != null, 'Background color may not be null.');
-    assert(error != null, 'Error color may not be null.');
-
-    // If null are passed in use fallback values.
-    primary ??= FlexColor.materialLightPrimary;
-    secondary ??= FlexColor.materialLightSecondary;
-    surface ??= FlexColor.materialLightSurface;
-    background ??= FlexColor.materialLightBackground;
-    error ??= FlexColor.materialLightError;
-
     // Check brightness of primary, secondary, error, surface and background
     // colors, then calculate appropriate colors for their onColors, if an
     // "on" color was not passed in, otherwise we just use its given color.
@@ -2919,11 +2820,11 @@ class FlexSchemeOnColors with Diagnosticable {
 
   /// Copy the object with one or more provided properties changed.
   FlexSchemeOnColors copyWith({
-    Color onPrimary,
-    Color onSecondary,
-    Color onSurface,
-    Color onBackground,
-    Color onError,
+    Color? onPrimary,
+    Color? onSecondary,
+    Color? onSurface,
+    Color? onBackground,
+    Color? onError,
   }) {
     return FlexSchemeOnColors(
       onPrimary: onPrimary ?? this.onPrimary,

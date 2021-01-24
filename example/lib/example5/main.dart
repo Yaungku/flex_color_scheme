@@ -125,7 +125,7 @@ final List<FlexSchemeData> myFlexSchemes = <FlexSchemeData>[
 ];
 
 class DemoApp extends StatefulWidget {
-  const DemoApp({Key key}) : super(key: key);
+  const DemoApp({Key? key}) : super(key: key);
 
   @override
   _DemoAppState createState() => _DemoAppState();
@@ -133,23 +133,23 @@ class DemoApp extends StatefulWidget {
 
 class _DemoAppState extends State<DemoApp> {
   // Used to select if we use the dark or light theme.
-  ThemeMode themeMode;
+  late ThemeMode themeMode;
 
   // Used to select which FlexSchemeData we use in our list of schemes.
-  int themeIndex;
+  late int themeIndex;
 
   // Enum used to control the level of primary color surface branding applied
   // to surfaces and backgrounds.
-  FlexSurface flexSurface;
+  late FlexSurface flexSurface;
 
   // Enum used to select what app bar style we use.
-  FlexAppBarStyle flexAppBarStyle;
+  late FlexAppBarStyle flexAppBarStyle;
 
   // Used to modify the themed app bar elevation.
-  double appBarElevation;
+  late double appBarElevation;
 
   // Enum used to select what tab bar style we use.
-  FlexTabBarStyle flexTabBarStyle;
+  late FlexTabBarStyle flexTabBarStyle;
 
   // If true, tooltip theme background will be light in light theme, and dark
   // in dark themes. The Flutter and Material default and standard is the other
@@ -157,27 +157,27 @@ class _DemoAppState extends State<DemoApp> {
   // Set to true, to mimic e.g. the look of Windows desktop tooltips. You
   // could tie this to the active platform and have different style of tooltips
   // on different platforms.
-  bool tooltipsMatchBackground;
+  late bool tooltipsMatchBackground;
 
   // Allow toggling between normal dark mode and true black dark mode.
-  bool darkIsTrueBlack;
+  late bool darkIsTrueBlack;
 
   // Allow toggling between using the actual defined dark color scheme or try
   // how it would look if we had not defined the dark colors, but had been lazy
   // and just created the dark scheme from the light scheme with the toDark()
   // method.
-  bool useToDarkMethod;
+  late bool useToDarkMethod;
 
   // The 'level' of white blend percentage used when computing dark scheme
   // colors from the light scheme colors with the toDark method.
-  int level;
+  late int level;
 
   // Use the toTheme method to create Themes from [FlexColorScheme]. This
   // is the preferred method when using [FlexColorScheme]. In this demo
   // you can use a toggle to see what a FlexColorScheme looks like if you just
   // return its color scheme and use [ThemeData.from] to instead create your
   // theme.
-  bool useToThemeMethod;
+  late bool useToThemeMethod;
 
   @override
   void initState() {
@@ -417,30 +417,30 @@ class _DemoAppState extends State<DemoApp> {
 // defined example looks like in an application and with commonly used Widgets.
 class HomePage extends StatefulWidget {
   const HomePage({
-    Key key,
-    @required this.themeMode,
-    @required this.onThemeModeChanged,
-    @required this.schemeIndex,
-    @required this.onSchemeChanged,
-    @required this.themeSurface,
-    @required this.onThemeSurfaceChanged,
-    @required this.appBarStyle,
-    @required this.onAppBarStyleChanged,
-    @required this.appBarElevation,
-    @required this.onAppBarElevationChanged,
-    @required this.tabBarStyle,
-    @required this.onTabBarStyleChanged,
-    @required this.tooltipsMatchBackground,
-    @required this.onTooltipsMatchBackgroundChanged,
-    @required this.darkIsTrueBlack,
-    @required this.onDarkIsTrueBlackChanged,
-    @required this.useToDark,
-    @required this.onUseToDarkChanged,
-    @required this.whiteBlend,
-    @required this.onWhiteBlendChanged,
-    @required this.useToTheme,
-    @required this.onUseToThemeChanged,
-    @required this.flexSchemeData,
+    Key? key,
+    required this.themeMode,
+    required this.onThemeModeChanged,
+    required this.schemeIndex,
+    required this.onSchemeChanged,
+    required this.themeSurface,
+    required this.onThemeSurfaceChanged,
+    required this.appBarStyle,
+    required this.onAppBarStyleChanged,
+    required this.appBarElevation,
+    required this.onAppBarElevationChanged,
+    required this.tabBarStyle,
+    required this.onTabBarStyleChanged,
+    required this.tooltipsMatchBackground,
+    required this.onTooltipsMatchBackgroundChanged,
+    required this.darkIsTrueBlack,
+    required this.onDarkIsTrueBlackChanged,
+    required this.useToDark,
+    required this.onUseToDarkChanged,
+    required this.whiteBlend,
+    required this.onWhiteBlendChanged,
+    required this.useToTheme,
+    required this.onUseToThemeChanged,
+    required this.flexSchemeData,
   }) : super(key: key);
   final ThemeMode themeMode;
   final ValueChanged<ThemeMode> onThemeModeChanged;
@@ -475,9 +475,9 @@ class _HomePageState extends State<HomePage> {
   // state of the dummy side menu/rail locally. All state concerning the
   // application theme are in this example also held by the stateful MaterialApp
   // widget, and values are passed in and changed via ValueChanged callbacks.
-  double currentSidePanelWidth;
-  bool isSidePanelExpanded;
-  bool showSidePanel;
+  late double currentSidePanelWidth;
+  late bool isSidePanelExpanded;
+  late bool showSidePanel;
 
   @override
   void initState() {
@@ -496,7 +496,7 @@ class _HomePageState extends State<HomePage> {
     final ThemeData theme = Theme.of(context);
     final ColorScheme colorScheme = theme.colorScheme;
     final TextTheme textTheme = theme.textTheme;
-    final TextStyle headline4 = textTheme.headline4;
+    final TextStyle headline4 = textTheme.headline4!;
     final Color appBarColor = theme.appBarTheme.color ?? theme.primaryColor;
     final bool isLight = Theme.of(context).brightness == Brightness.light;
 
@@ -721,7 +721,7 @@ class _HomePageState extends State<HomePage> {
                         // Style the selected theme mode's label
                         selectedLabelStyle: Theme.of(context)
                             .textTheme
-                            .caption
+                            .caption!
                             .copyWith(
                                 fontWeight: FontWeight.bold,
                                 color: Theme.of(context).colorScheme.primary),
@@ -799,7 +799,7 @@ class _HomePageState extends State<HomePage> {
                               '${widget.whiteBlend} %',
                               style: Theme.of(context)
                                   .textTheme
-                                  .caption
+                                  .caption!
                                   .copyWith(fontWeight: FontWeight.bold),
                             ),
                           ],
@@ -884,7 +884,7 @@ class _HomePageState extends State<HomePage> {
                         '${widget.appBarElevation.floor()}',
                         style: Theme.of(context)
                             .textTheme
-                            .caption
+                            .caption!
                             .copyWith(fontWeight: FontWeight.bold),
                       ),
                     ),

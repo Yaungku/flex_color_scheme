@@ -15,7 +15,7 @@ import '../all_shared_imports.dart';
 void main() => runApp(const DemoApp());
 
 class DemoApp extends StatefulWidget {
-  const DemoApp({Key key}) : super(key: key);
+  const DemoApp({Key? key}) : super(key: key);
 
   @override
   _DemoAppState createState() => _DemoAppState();
@@ -23,7 +23,7 @@ class DemoApp extends StatefulWidget {
 
 class _DemoAppState extends State<DemoApp> {
   // Used to select if we use the dark or light theme.
-  ThemeMode themeMode;
+  late ThemeMode themeMode;
 
   @override
   void initState() {
@@ -73,7 +73,7 @@ class _DemoAppState extends State<DemoApp> {
         // active theme's name, descriptions and colors in the demo.
         // We also use it for the theme mode switch that shows the theme's
         // color's in the different theme modes.
-        flexSchemeData: FlexColor.schemes[usedFlexScheme],
+        flexSchemeData: FlexColor.schemes[usedFlexScheme]!,
       ),
     );
   }
@@ -85,10 +85,10 @@ class _DemoAppState extends State<DemoApp> {
 // defined example looks like in an application and with commonly used Widgets.
 class HomePage extends StatelessWidget {
   const HomePage({
-    Key key,
-    @required this.themeMode,
-    @required this.onThemeModeChanged,
-    @required this.flexSchemeData,
+    Key? key,
+    required this.themeMode,
+    required this.onThemeModeChanged,
+    required this.flexSchemeData,
   }) : super(key: key);
   final ThemeMode themeMode;
   final ValueChanged<ThemeMode> onThemeModeChanged;
@@ -98,7 +98,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     final TextTheme textTheme = theme.textTheme;
-    final TextStyle headline4 = textTheme.headline4;
+    final TextStyle headline4 = textTheme.headline4!;
 
     return Scaffold(
       appBar: AppBar(

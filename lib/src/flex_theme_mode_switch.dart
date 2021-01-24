@@ -28,10 +28,10 @@ import 'flex_color.dart';
 class FlexThemeModeSwitch extends StatelessWidget {
   /// Default constructor.
   const FlexThemeModeSwitch({
-    Key key,
-    @required this.themeMode,
-    @required this.onThemeModeChanged,
-    @required this.flexSchemeData,
+    Key? key,
+    required this.themeMode,
+    required this.onThemeModeChanged,
+    required this.flexSchemeData,
     this.title,
     this.labelLight = 'LIGHT',
     this.labelDark = 'DARK',
@@ -40,9 +40,9 @@ class FlexThemeModeSwitch extends StatelessWidget {
     this.selectedLabelStyle,
     this.unselectedLabelStyle,
     this.labelAbove = true,
-    this.backgroundLight,
-    this.backgroundDark,
-    this.backgroundSystem,
+    this.backgroundLight = Colors.white,
+    this.backgroundDark = const Color(0xFF303030), // Grey[850]
+    this.backgroundSystem = const Color(0xFF9E9E9E), //grey[500],
     this.selectedBorder,
     this.unselectedBorder,
     this.selectedElevation = 0,
@@ -53,23 +53,10 @@ class FlexThemeModeSwitch extends StatelessWidget {
     this.height = 24,
     this.width = 24,
     this.borderRadius = 4,
-    this.padding,
+    this.padding = const EdgeInsets.all(3),
     this.hoverColor,
-  })  : assert(themeMode != null, 'Theme mode cannot be null'),
-        assert(
-            onThemeModeChanged != null, 'On theme mode changed cannot be null'),
-        assert(flexSchemeData != null, 'Flex scheme data cannot be null'),
-        assert(showSystemMode != null, 'Show system mode cannot be null'),
-        assert(labelAbove != null, 'Label above cannot be null'),
-        assert(selectedElevation != null && selectedElevation >= 0.0,
-            'Selected elevation cannot be null and must be >= 0.0'),
-        assert(unselectedElevation != null && unselectedElevation >= 0.0,
-            'Unselected elevation cannot be null and must be >= 0.0'),
-        assert(optionButtonBorderRadius != null,
-            'optionButtonBorderRadius cannot be null'),
-        assert(height != null, 'Height cannot be null'),
-        assert(width != null, 'Width cannot be null'),
-        assert(borderRadius != null, 'Border radius cannot be null'),
+  })  : assert(selectedElevation >= 0.0, 'Selected must be >= 0.0'),
+        assert(unselectedElevation >= 0.0, 'Unselected must be >= 0.0'),
         super(key: key);
 
   /// The current themeMode option button to be marked as selected.
@@ -84,18 +71,18 @@ class FlexThemeModeSwitch extends StatelessWidget {
 
   /// A leading title widget for the theme mode switch.
   /// Defaults to `Text('Theme mode')` with style subtitle1, if it is null.
-  final Widget title;
+  final Widget? title;
 
   /// Option label for theme mode light.
-  /// Defaults to 'LIGHT', assign null to omit the label.
+  /// Defaults to 'LIGHT', assign empty string to omit the label.
   final String labelLight;
 
   /// Option label for theme mode dark.
-  /// Defaults to 'DARK', assign null to omit the label.
+  /// Defaults to 'DARK', empty string to omit the label.
   final String labelDark;
 
   /// Option label for theme mode system.
-  /// Defaults to 'SYSTEM', assign null to omit the label.
+  /// Defaults to 'SYSTEM', empty string to omit the label.
   final String labelSystem;
 
   /// Include a theme option button for selecting system theme mode.
@@ -106,36 +93,36 @@ class FlexThemeModeSwitch extends StatelessWidget {
 
   /// Optional text style for the theme mode selected label.
   /// If null, default to Theme.of(context).textTheme.caption).
-  final TextStyle selectedLabelStyle;
+  final TextStyle? selectedLabelStyle;
 
   /// Optional text style for the theme mode unselected label.
   /// If null, default to Theme.of(context).textTheme.caption).
-  final TextStyle unselectedLabelStyle;
+  final TextStyle? unselectedLabelStyle;
 
   /// If true, the label will be above the option button, if false the
   /// label will be below the option button. Defaults to true.
   final bool labelAbove;
 
   /// Background color for the light theme option button.
-  /// If null, defaults to `Colors.white`.
+  /// Defaults to `Colors.white`.
   final Color backgroundLight;
 
   /// Background color for the dark theme option button.
-  /// If null, defaults to `Colors.grey[850]`.
+  /// Defaults to `Colors.grey[850]`.
   final Color backgroundDark;
 
   /// Background color for the system theme option button.
-  /// If null, defaults to `Colors.grey[500]`.
+  /// Defaults to `Colors.grey[500]`.
   final Color backgroundSystem;
 
   /// Border side for the selected option state.
   /// If null, defaults to
   /// `BorderSide(color: Theme.of(context).colorScheme.primary, width: 4)`.
-  final BorderSide selectedBorder;
+  final BorderSide? selectedBorder;
 
   /// Border side for the unselected option state.
   /// If null, defaults to `BorderSide(color: Theme.of(context).dividerColor)`.
-  final BorderSide unselectedBorder;
+  final BorderSide? unselectedBorder;
 
   /// The elevation of the option button when selected.
   /// Defaults to 0 dp.
@@ -147,11 +134,11 @@ class FlexThemeModeSwitch extends StatelessWidget {
 
   /// Padding around the option button.
   /// If null, defaults to `const EdgeInsetsDirectional.only(start: 6)`.
-  final EdgeInsets optionButtonPadding;
+  final EdgeInsets? optionButtonPadding;
 
   /// The margin inside the option button before the scheme color boxes.
   /// If null, defaults to `const EdgeInsets.all(4)`.
-  final EdgeInsets optionButtonMargin;
+  final EdgeInsets? optionButtonMargin;
 
   /// The circular borderRadius of the option button
   /// Defaults to 5 dp.
@@ -168,14 +155,14 @@ class FlexThemeModeSwitch extends StatelessWidget {
   final double borderRadius;
 
   /// Padding around an individual scheme color box.
-  /// If null, default to `const EdgeInsets.all(3)`
+  /// Default to `const EdgeInsets.all(3)`
   final EdgeInsets padding;
 
   /// The InkWell hover color for the option buttons.
   ///
   /// If null, defaults to `Color(0x50BCBCBC)` in light mode and to
   /// `Color(0x99555555)` dark mode.
-  final Color hoverColor;
+  final Color? hoverColor;
 
   @override
   Widget build(BuildContext context) {
@@ -188,7 +175,7 @@ class FlexThemeModeSwitch extends StatelessWidget {
         // Option button for light theme mode.
         FlexThemeModeOptionButton(
           flexSchemeColor: flexSchemeData.light,
-          backgroundColor: backgroundLight ?? Colors.white,
+          backgroundColor: backgroundLight,
           label: labelLight,
           labelStyle: themeMode == ThemeMode.light
               ? selectedLabelStyle
@@ -215,7 +202,7 @@ class FlexThemeModeSwitch extends StatelessWidget {
         // Option button for dark theme mode.
         FlexThemeModeOptionButton(
           flexSchemeColor: flexSchemeData.dark,
-          backgroundColor: backgroundDark ?? Colors.grey[850],
+          backgroundColor: backgroundDark,
           label: labelDark,
           labelStyle: themeMode == ThemeMode.dark
               ? selectedLabelStyle
@@ -252,7 +239,7 @@ class FlexThemeModeSwitch extends StatelessWidget {
               secondary: flexSchemeData.light.secondary,
               secondaryVariant: flexSchemeData.dark.secondary,
             ),
-            backgroundColor: backgroundSystem ?? Colors.grey[500],
+            backgroundColor: backgroundSystem,
             label: labelSystem,
             labelStyle: themeMode == ThemeMode.system
                 ? selectedLabelStyle
@@ -295,14 +282,14 @@ class FlexThemeModeSwitch extends StatelessWidget {
 class FlexThemeModeOptionButton extends StatelessWidget {
   /// Default constructor.
   const FlexThemeModeOptionButton({
-    Key key,
-    @required this.flexSchemeColor,
-    @required this.backgroundColor,
-    this.label,
+    Key? key,
+    required this.flexSchemeColor,
+    required this.backgroundColor,
+    this.label = '',
     this.labelStyle,
     this.labelAbove = true,
-    @required this.selected,
-    @required this.onSelect,
+    required this.selected,
+    required this.onSelect,
     this.selectedBorder,
     this.unselectedBorder,
     this.elevation = 0,
@@ -312,20 +299,9 @@ class FlexThemeModeOptionButton extends StatelessWidget {
     this.height = 24,
     this.width = 24,
     this.borderRadius = 4,
-    this.padding,
+    this.padding = const EdgeInsets.all(3),
     this.hoverColor,
-  })  : assert(flexSchemeColor != null, 'Scheme cannot be null'),
-        assert(backgroundColor != null, 'Color cannot be null'),
-        assert(labelAbove != null, 'Label above cannot be null'),
-        assert(selected != null, 'Selected cannot be null'),
-        assert(onSelect != null, 'onSelect cannot be null'),
-        assert(elevation != null && elevation >= 0.0,
-            'Elevation cannot be null and must be >= 0.0'),
-        assert(optionButtonBorderRadius != null,
-            'optionButtonBorderRadius cannot be null'),
-        assert(height != null, 'Height cannot be null'),
-        assert(width != null, 'Width cannot be null'),
-        assert(borderRadius != null, 'Border radius cannot be null'),
+  })  : assert(elevation >= 0.0, 'Elevation must be >= 0.0'),
         super(key: key);
 
   /// The scheme colors used to colorize the option button's four colors.
@@ -334,12 +310,13 @@ class FlexThemeModeOptionButton extends StatelessWidget {
   /// The background color of the option button
   final Color backgroundColor;
 
-  /// Optional text label for the button, if null, the label is omitted.
+  /// Optional string label for the button, if empty, the label is omitted.
+  /// Defaults to empty string.
   final String label;
 
   /// Optional text style for the [label].
   /// If null, default to Theme.of(context).textTheme.caption).
-  final TextStyle labelStyle;
+  final TextStyle? labelStyle;
 
   /// If true, the label will be above the option button, if false the
   /// label will be below the option button. Defaults to true.
@@ -354,11 +331,11 @@ class FlexThemeModeOptionButton extends StatelessWidget {
   /// Border side for the selected option state.
   /// If null, defaults to
   /// `BorderSide(color: Theme.of(context).colorScheme.primary, width: 4)`.
-  final BorderSide selectedBorder;
+  final BorderSide? selectedBorder;
 
   /// Border side for the unselected option state.
   /// If null, defaults to `BorderSide(color: Theme.of(context).dividerColor)`.
-  final BorderSide unselectedBorder;
+  final BorderSide? unselectedBorder;
 
   /// The elevation of the option button.
   /// Defaults to 0 dp.
@@ -366,11 +343,11 @@ class FlexThemeModeOptionButton extends StatelessWidget {
 
   /// Padding around the option button.
   /// If null, defaults to `const EdgeInsetsDirectional.only(start: 6)`.
-  final EdgeInsets optionButtonPadding;
+  final EdgeInsets? optionButtonPadding;
 
   /// The margin inside the option button before the scheme color boxes.
   /// If null, defaults to `EdgeInsets.all(4)`.
-  final EdgeInsets optionButtonMargin;
+  final EdgeInsets? optionButtonMargin;
 
   /// The circular borderRadius of the option button
   /// Defaults to 5 dp.
@@ -387,14 +364,14 @@ class FlexThemeModeOptionButton extends StatelessWidget {
   final double borderRadius;
 
   /// Padding around an individual scheme color box.
-  /// If null, default to `const EdgeInsets.all(3)`
+  /// Default to `const EdgeInsets.all(3)`
   final EdgeInsets padding;
 
   /// The InkWell hover color for the option button.
   ///
   /// If null, defaults to `Color(0x50BCBCBC)` in light mode and to
   /// `Color(0x99555555)` in dark-mode.
-  final Color hoverColor;
+  final Color? hoverColor;
 
   @override
   Widget build(BuildContext context) {
@@ -409,7 +386,7 @@ class FlexThemeModeOptionButton extends StatelessWidget {
         children: <Widget>[
           Column(
             children: <Widget>[
-              if (label != null && labelAbove)
+              if (label != '' && labelAbove)
                 Text(label,
                     style: labelStyle ?? Theme.of(context).textTheme.caption),
               Material(
@@ -479,7 +456,7 @@ class FlexThemeModeOptionButton extends StatelessWidget {
                   ),
                 ),
               ),
-              if (label != null && !labelAbove)
+              if (label != '' && !labelAbove)
                 Text(label,
                     style: labelStyle ?? Theme.of(context).textTheme.caption),
             ],
@@ -496,17 +473,13 @@ class FlexThemeModeOptionButton extends StatelessWidget {
 class _SchemeColorBox extends StatelessWidget {
   /// Default constructor.
   const _SchemeColorBox({
-    Key key,
-    @required this.color,
+    Key? key,
+    required this.color,
     this.height = 24,
     this.width = 24,
     this.borderRadius = 4,
-    this.padding,
-  })  : assert(color != null, 'Color cannot be null'),
-        assert(height != null, 'Height cannot be null'),
-        assert(width != null, 'Width cannot be null'),
-        assert(borderRadius != null, 'Border radius cannot be null'),
-        super(key: key);
+    this.padding = const EdgeInsets.all(3),
+  }) : super(key: key);
 
   /// The background color used to draw an individual scheme color box.
   /// Required, cannot be null.
@@ -529,7 +502,7 @@ class _SchemeColorBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: padding ?? const EdgeInsets.all(3),
+      padding: padding,
       child: Container(
         height: height,
         width: width,
